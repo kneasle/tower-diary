@@ -1,4 +1,7 @@
-use std::path::Path;
+use std::{
+    fmt::{Display, Formatter},
+    path::Path,
+};
 
 use serde::{Deserialize, Deserializer};
 
@@ -57,6 +60,15 @@ pub enum RingType {
 #[derive(Debug, Clone)]
 pub struct Weight {
     lbs: f64,
+}
+
+impl Display for Weight {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let cwt = self.lbs / 14.0 / 8.0;
+        let kg = self.lbs * 0.453592;
+
+        write!(f, "{cwt:.2} cwt / {kg:.0}kg")
+    }
 }
 
 /////////////////////////////
