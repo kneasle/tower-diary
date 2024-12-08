@@ -5,11 +5,11 @@ use std::{
 
 use serde::{Deserialize, Deserializer};
 
-pub fn read_doves_csv(path: impl AsRef<Path>) -> Vec<Ring> {
+pub fn read_doves_csv(path: impl AsRef<Path>) -> Vec<RingOfBells> {
     let mut rings = Vec::new();
     let mut reader = csv::Reader::from_path(path).unwrap();
     for result in reader.deserialize() {
-        let ring: Ring = result.unwrap();
+        let ring: RingOfBells = result.unwrap();
         rings.push(ring);
     }
     rings
@@ -17,7 +17,7 @@ pub fn read_doves_csv(path: impl AsRef<Path>) -> Vec<Ring> {
 
 /// A `Ring` of bells in Dove's Guide.  Note that the same tower could contain multiple `Ring`s.
 #[derive(Debug, Clone, Deserialize)]
-pub struct Ring {
+pub struct RingOfBells {
     #[serde(rename = "TowerID")]
     pub id: usize,
     #[serde(rename = "RingType")]
